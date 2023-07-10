@@ -73,10 +73,15 @@ class PassFileIO {
           await Directory(filename).create(recursive: true);
         }
       }
-    } on Exception {
+    } catch (e) {
+      if (kDebugMode) print(e);
       delete(passDirectory, passFile);
-      throw Exception('Unpack passkit file failed!');
+      throw Exception('Unpack passkit file failed! $e');
     }
+    // } on Exception {
+    //   delete(passDirectory, passFile);
+    //   throw Exception('Unpack passkit file failed!');
+    // }
   }
 
   // ignore: public_member_api_docs
